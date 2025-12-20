@@ -3,15 +3,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] MobileJoystick playerJoystick;
+    [SerializeField] float moveSpeed;
+
     Rigidbody2D rb2d;
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        rb2d.velocity = Vector2.right;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-
+        rb2d.velocity = playerJoystick.GetMoveVector() * moveSpeed;
     }
 }
