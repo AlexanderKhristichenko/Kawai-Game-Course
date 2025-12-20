@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerJoystick: {fileID: 2135629161}
-  moveSpeed: 3
+  moveSpeed: 0.05
 --- !u!50 &286291321
 Rigidbody2D:
   serializedVersion: 4
