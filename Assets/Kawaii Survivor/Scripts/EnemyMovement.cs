@@ -4,6 +4,9 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float playerDetectionRadius;
+    [SerializeField] SpriteRenderer render;
+    [SerializeField] SpriteRenderer spawnIndicator;
+    bool hasSpawned;
 
     [Header("Effects")]
     [SerializeField] ParticleSystem passAwayParticles;
@@ -21,12 +24,27 @@ public class EnemyMovement : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        render.enabled = false;
+        spawnIndicator.enabled = true;
+
+        Vector3 targetScale = spawnIndicator.transform.localScale * 1.3f;
+        LeanTween.scale(spawnIndicator.gameObject, targetScale, .3f).setLoopPingPong(4).setOnComplete(SpawnComleted);
     }
 
     void Update()
     {
+        if (!hasSpawned) return;
+
         FollowPlayer();
         TryAttack();
+    }
+
+    void SpawnComleted()
+    {
+        hasSpawned = true;
+        render.enabled = true;
+        spawnIndicator.enabled = false;
     }
 
     void FollowPlayer()
