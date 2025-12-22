@@ -2,19 +2,27 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] float moveSpeed;
     [SerializeField] float playerDetectionRadius;
-    [SerializeField] SpriteRenderer render;
-    [SerializeField] SpriteRenderer spawnIndicator;
+    Player player;
     bool hasSpawned;
+
+    [Header("Elements")]
+    [SerializeField] SpriteRenderer enemyRender;
+    [SerializeField] SpriteRenderer spawnIndicator;
 
     [Header("Effects")]
     [SerializeField] ParticleSystem passAwayParticles;
 
+    [Header("Attack Settings")]
+    [SerializeField] int damage;
+    [SerializeField] float attackFrequency;
+    float attackDelay;
+    float attackTimer;
+
     [Header("Debug")]
     [SerializeField] bool showGizmos;
-
-    Player player;
 
     void Start()
     {
@@ -25,11 +33,13 @@ public class EnemyMovement : MonoBehaviour
             Destroy(gameObject);
         }
 
-        render.enabled = false;
+        enemyRender.enabled = false;
         spawnIndicator.enabled = true;
 
         Vector3 targetScale = spawnIndicator.transform.localScale * 1.3f;
         LeanTween.scale(spawnIndicator.gameObject, targetScale, .3f).setLoopPingPong(4).setOnComplete(SpawnComleted);
+
+        attackDelay = 1f / attackFrequency;
     }
 
     void Update()
@@ -37,13 +47,26 @@ public class EnemyMovement : MonoBehaviour
         if (!hasSpawned) return;
 
         FollowPlayer();
-        TryAttack();
+
+        if (attackTimer >= attackDelay)
+        {
+            TryAttack();
+        }
+        else
+        {
+            Wait();
+        }
+    }
+
+    void Wait()
+    {
+        attackTimer += Time.deltaTime;
     }
 
     void SpawnComleted()
     {
         hasSpawned = true;
-        render.enabled = true;
+        enemyRender.enabled = true;
         spawnIndicator.enabled = false;
     }
 
@@ -60,7 +83,13 @@ public class EnemyMovement : MonoBehaviour
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer <= playerDetectionRadius) PassAway();
+        if (distanceToPlayer <= playerDetectionRadius) Attack();
+    }
+
+    void Attack()
+    {
+        Debug.Log("Attack");
+        attackTimer = 0;
     }
 
     void PassAway()

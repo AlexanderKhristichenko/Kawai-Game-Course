@@ -6621,9 +6621,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   playerDetectionRadius: 0.5
-  render: {fileID: 719924966}
+  enemyRender: {fileID: 719924966}
   spawnIndicator: {fileID: 590746041}
   passAwayParticles: {fileID: 632261845}
+  damage: 10
+  attackFrequency: 2
   showGizmos: 0
 --- !u!1 &1192143486
 GameObject:
