@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -9,16 +11,12 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Elements")]
     [SerializeField] Slider healthSlider;
+    [SerializeField] TextMeshProUGUI healthText;
 
     void Start()
     {
         currentHealth = maxHealth;
-        healthSlider.value = 1;
-
-    }
-
-    void Update()
-    {
+        UpdateUI();
 
     }
 
@@ -27,8 +25,7 @@ public class PlayerHealth : MonoBehaviour
         int realDamage = Mathf.Min(damage, currentHealth);
         currentHealth -= damage;
 
-        float healthBarValue = (float)currentHealth / maxHealth;
-        healthSlider.value = healthBarValue;
+        UpdateUI();
 
         if (currentHealth <= 0) PassAway();
     }
@@ -36,5 +33,13 @@ public class PlayerHealth : MonoBehaviour
     void PassAway()
     {
         Debug.Log("Dead");
+        SceneManager.LoadScene(0);
+    }
+
+    void UpdateUI()
+    {
+        float healthBarValue = (float)currentHealth / maxHealth;
+        healthSlider.value = healthBarValue;
+        healthText.text = $"{currentHealth} / {maxHealth}";
     }
 }
