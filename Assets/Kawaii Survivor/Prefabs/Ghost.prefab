@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2569363419284184993}
   - component: {fileID: 4467138500194163997}
   - component: {fileID: 2914437266164647928}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pass Away Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4900,7 +4900,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5039666168080244214}
   - component: {fileID: 7068104326867621480}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spawn Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4986,7 +4986,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3462321427764890508}
   - component: {fileID: 5361342940817269220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ghost Render
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5071,9 +5071,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4076644397685424609}
+  - component: {fileID: 3345445111863544180}
   - component: {fileID: 1366831533029157131}
   - component: {fileID: 4287467315494311190}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5098,6 +5099,43 @@ Transform:
   - {fileID: 2569363419284184993}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &3345445111863544180
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8263538932724210623}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.05163622, y: 0.7352035}
+  m_Size: {x: 0.91800785, y: 1.5163636}
+  m_Direction: 0
 --- !u!114 &1366831533029157131
 MonoBehaviour:
   m_ObjectHideFlags: 0

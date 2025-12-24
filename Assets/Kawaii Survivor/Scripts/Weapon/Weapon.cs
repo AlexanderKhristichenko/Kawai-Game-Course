@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] float range;
+    [SerializeField] LayerMask enemyMask;
+
+    [Header("Debug")]
+    [SerializeField] bool showGizmos;
+
     void Start()
     {
 
@@ -10,12 +17,19 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         Enemy closestEnemy = null;
-        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        float minDistance = 5000;
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, range, enemyMask);
+
+        if (enemies.Length <= 0)
+        {
+            transform.up = Vector3.up;
+            return;
+        }
+
+        float minDistance = range;
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            Enemy enemyChecked = enemies[i];
+            Enemy enemyChecked = enemies[i].GetComponent<Enemy>();
             float distanceToEnemy = Vector2.Distance(transform.position, enemyChecked.transform.position);
 
             if (distanceToEnemy < minDistance)
@@ -32,5 +46,13 @@ public class Weapon : MonoBehaviour
         }
 
         transform.up = (closestEnemy.transform.position - transform.position).normalized;
+    }
+
+    void OnDrawGizmos()
+    {
+        if (!showGizmos) return;
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }
